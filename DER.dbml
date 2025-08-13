@@ -1,0 +1,48 @@
+Table Categoria {
+  id_categoria int [pk, increment]
+  nome varchar(100)
+}
+
+Table Livro {
+  id_livro int [pk, increment]
+  titulo varchar(200)
+  ano_publicacao int
+  isbn varchar(20)
+  id_categoria int [ref: > Categoria.id_categoria]
+}
+
+Table Autor {
+  id_autor int [pk, increment]
+  nome varchar(150)
+}
+
+Table LivroAutor {
+  id_livro int [ref: > Livro.id_livro]
+  id_autor int [ref: > Autor.id_autor]
+  pk (id_livro, id_autor)
+}
+
+Table Exemplar {
+  id_exemplar int [pk, increment]
+  id_livro int [ref: > Livro.id_livro]
+  codigo_exemplar varchar(50)
+  estado varchar(50)
+  disponivel boolean
+}
+
+Table Usuario {
+  id_usuario int [pk, increment]
+  nome varchar(150)
+  email varchar(150)
+  telefone varchar(20)
+}
+
+Table Emprestimo {
+  id_emprestimo int [pk, increment]
+  id_exemplar int [ref: > Exemplar.id_exemplar]
+  id_usuario int [ref: > Usuario.id_usuario]
+  data_emprestimo date
+  data_prevista_devolucao date
+  data_devolucao date
+  status varchar(30)
+}
